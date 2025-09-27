@@ -4,7 +4,7 @@
   "description": "A utility to match brackets/parentheses in code or text",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js",
+    "test": "node __test__.js",
     "prepublishOnly": "npm test"
   },
   "keywords": [
