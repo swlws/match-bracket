@@ -12,7 +12,7 @@
 ## 安装
 
 ```bash
-npm install match-bracket
+npm install bracket-match
 ```
 
 ## 使用方法
@@ -20,7 +20,7 @@ npm install match-bracket
 ### 基础用法
 
 ```javascript
-import { bracketMatch } from 'match-bracket';
+import { bracketMatch } from 'bracket-match';
 
 // 定义括号列表（每个对象包含left和right属性）
 const bracketList = [
