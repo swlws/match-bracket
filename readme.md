@@ -20,7 +20,7 @@ npm install match-bracket
 ### 基础用法
 
 ```javascript
-import { matchBracket } from 'match-bracket';
+import { bracketMatch } from 'match-bracket';
 
 // 定义括号列表（每个对象包含left和right属性）
 const bracketList = [
@@ -30,7 +30,7 @@ const bracketList = [
 ];
 
 // 查找左括号匹配
-const result = matchBracket({
+const result = bracketMatch({
   bracketList,
   rowIndex: 0,          // 起始行索引
   bracketString: '('    // 要查找的括号字符串
@@ -48,7 +48,7 @@ console.log(result);
 
 ## API 文档
 
-matchBracket(options)
+bracketMatch(options)
 
 ### 参数
 
@@ -80,7 +80,7 @@ const bracketList = [
 ];
 
 // 查找第0行的"(( "（完整左括号）
-const result = matchBracket({
+const result = bracketMatch({
   bracketList,
   rowIndex: 0,
   bracketString: '(('
@@ -105,7 +105,7 @@ const bracketList = [
 ];
 
 // 查找第1行的"))"（完整右括号）
-const result = matchBracket({
+const result = bracketMatch({
   bracketList,
   rowIndex: 1,
   bracketString: '))'

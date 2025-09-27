@@ -1,9 +1,9 @@
-const matchBracket = require('./index');
+const bracketMatch = require('./index');
 
 // 测试用例
 (() => {
   function caseTest(name, params, expectResult) {
-    const result = matchBracket(params);
+    const result = bracketMatch(params);
     const keys = [
       'balanced',
       'leftRowIndex',

@@ -7,7 +7,7 @@
     module.exports = factory();
   } else {
     // 浏览器全局
-    root.matchBracket = factory();
+    root.bracketMatch = factory();
   }
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
@@ -20,7 +20,7 @@
    * @param {string} options.bracketString - 要查找的括号字符串
    * @returns {Object|null} - 匹配结果
    */
-  function matchBracket({
+  function bracketMatch({
     bracketList = [],
     rowIndex = 0,
     bracketString = '',
@@ -76,5 +76,5 @@
   }
 
   // UMD 导出
-  return matchBracket;
+  return bracketMatch;
 });

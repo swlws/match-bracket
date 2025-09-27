@@ -1,5 +1,5 @@
 {
-  "name": "match-bracket",
+  "name": "bracket-match",
   "version": "1.0.0",
   "description": "A utility to match brackets/parentheses in code or text",
   "main": "index.js",
@@ -8,6 +8,8 @@
     "prepublishOnly": "npm test"
   },
   "keywords": [
+    "match-bracket",
+    "bracket-match",
     "bracket",
     "parentheses",
     "match",
