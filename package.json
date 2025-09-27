@@ -1,0 +1,31 @@
+{
+  "name": "match-bracket",
+  "version": "1.0.0",
+  "description": "A utility to match brackets/parentheses in code or text",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "bracket",
+    "parentheses",
+    "match",
+    "utility",
+    "code-analysis"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:swlws/match-bracket.git"
+  },
+  "bugs": {
+    "url": "https://github.com/swlws/match-bracket/issues"
+  },
+  "homepage": "https://github.com/swlws/match-bracket#readme",
+  "files": [
+    "index.js",
+    "README.md"
+  ]
+}
