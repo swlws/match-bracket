@@ -18,7 +18,7 @@
    * @param {Array<{left: string, right: string}>} options.bracketList - 括号列表。
    * @param {number} options.rowIndex - 行索引
    * @param {string} options.bracketString - 要查找的括号字符串
-   * @returns {Object} - 匹配结果
+   * @returns {Object|null} - 匹配结果
    */
   function matchBracket({
     bracketList = [],
@@ -37,64 +37,39 @@
       return null;
     }
 
-    if (isLeft) {
-      let leftSize = bracketString.length;
-      const bracketIndex = current.left.length - leftSize;
-      for (let i = rowIndex; i < bracketList.length; i++) {
-        const { left, right } = bracketList[i];
-        if (i !== rowIndex) {
-          leftSize += left.length;
-        }
-        const rightSize = right.length;
-        if (rightSize === 0) continue;
+    // 定义遍历方向
+    const step = isLeft ? +1 : -1;
+    let remain = bracketString.length;
+    const bracketIndex = isLeft
+      ? current.left.length - remain // 左括号索引
+      : remain - 1; // 右括号索引
 
-        if (rightSize < leftSize) {
-          leftSize = leftSize - rightSize;
-          continue;
-        }
+    for (let i = rowIndex; i >= 0 && i < bracketList.length; i += step) {
+      const { left, right } = bracketList[i];
 
-        return {
-          // 剩余的左括号，将当前行的右括号消耗完、且左括号的开始索引为 0 ，认为是平衡的
-          balanced: bracketIndex === 0 && leftSize === rightSize,
-          leftRowIndex: rowIndex,
-          rightRowIndex: i,
-          leftBracketIndex: bracketIndex,
-          rightBracketIndex: leftSize - 1,
-        };
+      if (i !== rowIndex) {
+        // 如果是向右查找，就累加 left；如果是向左查找，就累加 right
+        remain += isLeft ? left.length : right.length;
       }
 
-      return null;
-    }
+      const oppositeSize = isLeft ? right.length : left.length;
+      if (oppositeSize === 0) continue;
 
-    if (isRight) {
-      let rightSize = bracketString.length;
-      const bracketIndex = rightSize - 1;
-
-      for (let i = rowIndex; i >= 0; i--) {
-        const { left, right } = bracketList[i];
-        if (i !== rowIndex) {
-          rightSize += right.length;
-        }
-        const leftSize = left.length;
-        if (leftSize === 0) continue;
-
-        if (leftSize < rightSize) {
-          rightSize = rightSize - leftSize;
-          continue;
-        }
-
-        return {
-          // 剩余的右括号，将当前行的左括号消耗完、且右括号的结束索引为最后一个括号，认为是平衡的
-          balanced:
-            bracketString.length === rightSize && leftSize === rightSize,
-          leftRowIndex: i,
-          rightRowIndex: rowIndex,
-          leftBracketIndex: leftSize - rightSize,
-          rightBracketIndex: bracketIndex,
-        };
+      if (oppositeSize < remain) {
+        remain -= oppositeSize;
+        continue;
       }
 
-      return null;
+      // 找到匹配位置
+      return {
+        balanced: isLeft
+          ? bracketIndex === 0 && remain === oppositeSize
+          : bracketString.length === remain && remain === oppositeSize,
+        leftRowIndex: isLeft ? rowIndex : i,
+        rightRowIndex: isLeft ? i : rowIndex,
+        leftBracketIndex: isLeft ? bracketIndex : left.length - remain,
+        rightBracketIndex: isLeft ? remain - 1 : bracketIndex,
+      };
     }
 
     return null;
